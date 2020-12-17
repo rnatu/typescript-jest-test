@@ -1,6 +1,6 @@
 describe('Testando alguma coisa no grupo 1', () => {
   it('should return one', () => {
-    const number = 1;
+    const number = 55;
     expect(number).not.toBe(1);
   });
 });
