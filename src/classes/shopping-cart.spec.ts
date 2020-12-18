@@ -23,12 +23,12 @@ const createCartItem = (name: string, price: number) => {
 };
 
 const createSutWithProducts = () => {
-  const { sut } = createSut();
+  const { sut, discountMock } = createSut();
   const cartItem1 = createCartItem('Camiseta', 40);
   const cartItem2 = createCartItem('Caneta', 1);
   sut.addItem(cartItem1);
   sut.addItem(cartItem2);
-  return { sut };
+  return { sut, discountMock };
 };
 
 describe('ShoppingCart', () => {
@@ -63,5 +63,19 @@ describe('ShoppingCart', () => {
     expect(sut.items.length).toBe(1);
     sut.removeItem(0);
     expect(sut.items.length).toBe(0);
+  });
+
+  it('should call discount.calculate once when totalWithDiscount is called', () => {
+    const { sut, discountMock } = createSutWithProducts();
+    const discountMockSpy = jest.spyOn(discountMock, 'calculate');
+    sut.totalWithDiscount();
+    expect(discountMockSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call discount.calculate with totalPrice when totalWithDiscount is called', () => {
+    const { sut, discountMock } = createSutWithProducts();
+    const discountMockSpy = jest.spyOn(discountMock, 'calculate');
+    sut.totalWithDiscount();
+    expect(discountMockSpy).toHaveBeenCalledWith(sut.total());
   });
 });
