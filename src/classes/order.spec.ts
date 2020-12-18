@@ -87,9 +87,7 @@ describe('Order', () => {
     const messagingMockSpy = jest.spyOn(messagingMock, 'sendMessage');
 
     sut.checkout();
-
-    expect(messagingMockSpy).toBe('hello');
-    expect(messagingMockSpy).toHaveBeenCalledTimes(2);
+    expect(messagingMockSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should save order', () => {
