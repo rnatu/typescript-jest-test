@@ -67,6 +67,7 @@ describe('ShoppingCart', () => {
 
   it('should call discount.calculate once when totalWithDiscount is called', () => {
     const { sut, discountMock } = createSutWithProducts();
+    //dando spy em discountMock, método calculate
     const discountMockSpy = jest.spyOn(discountMock, 'calculate');
     sut.totalWithDiscount();
     expect(discountMockSpy).toHaveBeenCalledTimes(1);
